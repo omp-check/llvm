@@ -31,6 +31,7 @@ void llvm::initializeInstrumentation(PassRegistry &Registry) {
   initializeMemorySanitizerPass(Registry);
   initializeThreadSanitizerPass(Registry);
   initializeMemoryProfilerPass(Registry);
+  initializeLoopFinderPass(Registry);
 }
 
 /// LLVMInitializeInstrumentation - C binding for

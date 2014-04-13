@@ -113,6 +113,7 @@ void initializeEarlyIfConverterPass(PassRegistry&);
 void initializeEdgeBundlesPass(PassRegistry&);
 void initializeEdgeProfilerPass(PassRegistry&);
 void initializeMemoryProfilerPass(PassRegistry&);
+void initializeLoopFinderPass(PassRegistry&);
 void initializeExpandPostRAPass(PassRegistry&);
 void initializePathProfilerPass(PassRegistry&);
 void initializeGCOVProfilerPass(PassRegistry&);
