@@ -10,6 +10,8 @@
 LEVEL = ../..
 include $(LEVEL)/Makefile.config
 
+CPPFLAGS += -std=c++11
+
 ifneq ($(strip $(LLVMCC)),)
 BYTECODE_LIBRARY = 1
 endif

@@ -20,11 +20,16 @@ namespace llvm {
 
 class ModulePass;
 class FunctionPass;
+class LoopPass;
+
+//ModulePass *createDependenceProfilerPass();
+
+LoopPass *createLoopFinderPass();
 
 // Insert edge profiling instrumentation
 ModulePass *createEdgeProfilerPass();
 
-// Insert edge profiling instrumentation
+// Insert memory profiling instrumentation
 ModulePass *createMemoryProfilerPass();
 
 // Insert optimal edge profiling instrumentation

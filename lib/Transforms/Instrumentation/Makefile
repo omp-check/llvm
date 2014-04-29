@@ -11,5 +11,7 @@ LEVEL = ../../..
 LIBRARYNAME = LLVMInstrumentation
 BUILD_ARCHIVE = 1
 
+CPPFLAGS += -std=c++11
+
 include $(LEVEL)/Makefile.common
 

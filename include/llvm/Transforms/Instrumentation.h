@@ -22,7 +22,9 @@ class ModulePass;
 class FunctionPass;
 class LoopPass;
 
-LoopPass *createLoopFinderPass();
+//ModulePass *createDependenceProfilerPass();
+
+ModulePass *createLoopFinderPass();
 
 // Insert edge profiling instrumentation
 ModulePass *createEdgeProfilerPass();

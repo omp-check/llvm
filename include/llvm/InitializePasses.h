@@ -114,6 +114,7 @@ void initializeEdgeBundlesPass(PassRegistry&);
 void initializeEdgeProfilerPass(PassRegistry&);
 void initializeMemoryProfilerPass(PassRegistry&);
 void initializeLoopFinderPass(PassRegistry&);
+//void initializeDependenceProfilerPass(PassRegistry&);
 void initializeExpandPostRAPass(PassRegistry&);
 void initializePathProfilerPass(PassRegistry&);
 void initializeGCOVProfilerPass(PassRegistry&);
