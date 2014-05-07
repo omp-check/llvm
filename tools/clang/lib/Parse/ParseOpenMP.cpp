@@ -11,6 +11,7 @@
 ///
 //===----------------------------------------------------------------------===//
 
+#include <stdio.h>
 #include "clang/AST/ASTConsumer.h"
 #include "clang/AST/StmtOpenMP.h"
 #include "clang/Parse/ParseDiagnostic.h"
@@ -18,6 +19,7 @@
 #include "clang/Sema/Scope.h"
 #include "llvm/ADT/PointerIntPair.h"
 #include "RAIIObjectsForParser.h"
+#include "llvm/Support/raw_ostream.h"
 using namespace clang;
 
 //===----------------------------------------------------------------------===//
@@ -140,6 +142,7 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
   DeclarationNameInfo DirName;
   SmallVector<OMPClause *, 5> LocalSavedClauses;
   Token SavedToken;
+  Token SavedToken2;
 
   switch (DKind) {
   case OMPD_threadprivate:
@@ -191,16 +194,31 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
   case OMPD_parallel:
     if (DKind == OMPD_parallel) {
       SavedToken = PP.LookAhead(0);
+
       if (!SavedToken.isAnnotation()) {
-        OpenMPDirectiveKind SDKind =
-           getOpenMPDirectiveKind(PP.getSpelling(SavedToken));
-        if (SDKind == OMPD_for) {
-          DKind = OMPD_parallel_for;
-          ConsumeToken();
-        } else if (SDKind == OMPD_sections) {
-          DKind = OMPD_parallel_sections;
-          ConsumeToken();
-        }
+		OpenMPDirectiveKind SDKind =
+			getOpenMPDirectiveKind(PP.getSpelling(SavedToken));
+
+		if (SDKind == OMPD_for) {
+			SavedToken2 = PP.LookAhead(1);
+	      	if (!SavedToken2.isAnnotation()) {
+				printf("----------TOKEN2----------\n");
+				OpenMPDirectiveKind SDKind2 =
+					getOpenMPDirectiveKind(PP.getSpelling(SavedToken2));
+
+				if (SDKind2 == OMPD_check) {
+					printf("----------CHECK----------\n");
+					DKind = OMPD_parallel_for_check;
+				     ConsumeToken();
+				}
+				else
+					DKind = OMPD_parallel_for;
+			}
+			ConsumeToken();
+		} else if (SDKind == OMPD_sections) {
+			DKind = OMPD_parallel_sections;
+		     ConsumeToken();
+		}
       }
     }
   case OMPD_for:
