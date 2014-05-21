@@ -12,8 +12,10 @@
 //===----------------------------------------------------------------------===//
 
 #include <stdio.h>
+#include "clang/Rewrite/Frontend/ASTConsumers.h"
 #include "clang/AST/ASTConsumer.h"
 #include "clang/AST/StmtOpenMP.h"
+#include "clang/AST/AST.h"
 #include "clang/Parse/ParseDiagnostic.h"
 #include "clang/Parse/Parser.h"
 #include "clang/Sema/Scope.h"
@@ -143,12 +145,13 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
   SmallVector<OMPClause *, 5> LocalSavedClauses;
   Token SavedToken;
   Token SavedToken2;
+  bool insertFunction = false;
 
   switch (DKind) {
   case OMPD_threadprivate:
     ConsumeToken();
     if (!ParseOpenMPSimpleVarList(OMPD_threadprivate, Identifiers, false)) {
-      // The last seen token is annot_pragma_openmp_end - need to check for
+      // The last seen token is annot_pra	gma_openmp_end - need to check for
       // extra tokens.
       if (Tok.isNot(tok::annot_pragma_openmp_end)) {
         Diag(Tok, diag::warn_omp_extra_tokens_at_eol)
@@ -208,7 +211,8 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
 
 				if (SDKind2 == OMPD_check) {
 					printf("----------CHECK----------\n");
-					DKind = OMPD_parallel_for_check;
+					insertFunction = true;
+					DKind = OMPD_parallel_for;
 				     ConsumeToken();
 				}
 				else
@@ -379,6 +383,38 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
     SkipUntil(tok::annot_pragma_openmp_end, false);
     break;
   }
+	
+	ASTContext *Context;
+	TranslationUnitDecl *TUDecl;// = &Actions.getTranslationUnitDecl();
+
+	Context = &Actions.getASTContext();
+
+	printf("--1--\n");
+	if(insertFunction) {
+		/*DeclContext *DC = Actions.CurContext;
+		QualType Type = Context->VoidPtrTy;
+		IdentifierInfo *II = &Actions.PP.getIdentifierTable().get("initOMPCheck");
+		TypeSourceInfo *TInfo = Actions.Context.getTrivialTypeSourceInfo(Type, Loc);
+		VarDecl *Decl = VarDecl::Create(Actions.Context, DC, Loc, Loc, II, Type,TInfo, SC_None);
+		Decl->setImplicit();
+
+		Actions.InstantiateStaticDataMemberDefinition(Loc, Decl);*/
+
+		printf("--2--\n");
+		IdentifierInfo *II = &Context->Idents.getOwn("initOMPCheck");
+		printf("--3--|%s\n",II->getName());
+		QualType FType = Context->getFunctionNoProtoType(Context->VoidPtrTy);
+		printf("--4--|%s\n", FType);
+		FunctionDecl *FD = FunctionDecl::Create(*Context, TUDecl,
+                                               Loc,
+                                               Loc,
+                                               II, FType, 0,
+                                               SC_Extern);
+		printf("--5--\n");		
+		Actions.InstantiateFunctionDefinition(Loc, FD, false, false);
+		printf("--6--\n");
+	}
+
   return Directive;
 }
 

@@ -1,10 +1,11 @@
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/Release+Asserts/ParseOpenMP.o \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/Release+Asserts/ParseOpenMP.d: \
  ParseOpenMP.cpp \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Rewrite/Frontend/ASTConsumers.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LLVM.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTConsumer.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/StmtOpenMP.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/SourceLocation.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LLVM.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/OpenMPKinds.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/OpenMPKinds.def \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/Stmt.h \
@@ -49,6 +50,44 @@
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/CharInfo.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/TypeTraits.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Builtins.def \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/AST.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTContext.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTTypeTraits.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/TypeLoc.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/TypeLocNodes.def \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/CanonicalType.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/CommentCommandTraits.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/CommentOptions.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/CommentCommandList.inc \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/LambdaMangleContext.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/PrettyPrinter.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LangOptions.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/ObjCRuntime.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/VersionTuple.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Sanitizers.def \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LangOptions.def \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/OpenCLExtensions.def \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/RawCommentList.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/SourceManager.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/FileManager.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/FileSystemOptions.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/RecursiveASTVisitor.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclCXX.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTUnresolvedSet.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/UnresolvedSet.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ExprCXX.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/ExpressionTraits.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Lambda.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclFriend.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclTemplate.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclObjC.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/SelectorLocationsKind.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclOpenMP.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ExprObjC.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/StmtCXX.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/StmtObjC.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/AddressSpaces.h \
+ /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/StmtVisitor.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Parse/ParseDiagnostic.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/DiagnosticParseKinds.inc \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Parse/Parser.h \
@@ -57,13 +96,6 @@
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/Preprocessor.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Builtins.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/Lexer.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LangOptions.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/CommentOptions.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/ObjCRuntime.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/VersionTuple.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Sanitizers.def \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LangOptions.def \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/OpenCLExtensions.def \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/PreprocessorLexer.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/MultipleIncludeOpt.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/Token.h \
@@ -71,16 +103,12 @@
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/MacroInfo.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/PPCallbacks.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/DirectoryLookup.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/SourceManager.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/FileManager.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/FileSystemOptions.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/ModuleLoader.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Module.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/PTHLexer.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/PTHManager.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/TokenLexer.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/DeclSpec.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Lambda.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/AttributeList.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/Ownership.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/AttrParsedAttrList.inc \
@@ -89,15 +117,7 @@
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/AttrKinds.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/AttrList.inc \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/Attrs.inc \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ExprObjC.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclObjC.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/SelectorLocationsKind.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/LambdaMangleContext.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/NSAPI.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/PrettyPrinter.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/TypeLoc.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/TypeLocNodes.def \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/ExpressionTraits.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/AnalysisBasedWarnings.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/ExternalSemaSource.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/Weak.h \
@@ -106,21 +126,19 @@
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/ObjCMethodList.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/ScopeInfo.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/TypoCorrection.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclCXX.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTUnresolvedSet.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/UnresolvedSet.h \
- /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ExprCXX.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/Scope.h \
  RAIIObjectsForParser.h \
  /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/DelayedDiagnostic.h
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Rewrite/Frontend/ASTConsumers.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LLVM.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTConsumer.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/StmtOpenMP.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/SourceLocation.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LLVM.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/OpenMPKinds.h:
 
@@ -210,6 +228,82 @@
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Builtins.def:
 
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/AST.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTContext.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTTypeTraits.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/TypeLoc.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/TypeLocNodes.def:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/CanonicalType.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/CommentCommandTraits.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/CommentOptions.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/CommentCommandList.inc:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/LambdaMangleContext.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/PrettyPrinter.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LangOptions.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/ObjCRuntime.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/VersionTuple.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Sanitizers.def:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LangOptions.def:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/OpenCLExtensions.def:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/RawCommentList.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/SourceManager.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/FileManager.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/FileSystemOptions.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/RecursiveASTVisitor.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclCXX.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTUnresolvedSet.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/UnresolvedSet.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ExprCXX.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/ExpressionTraits.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Lambda.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclFriend.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclTemplate.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclObjC.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/SelectorLocationsKind.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclOpenMP.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ExprObjC.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/StmtCXX.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/StmtObjC.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/AddressSpaces.h:
+
+/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/StmtVisitor.h:
+
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Parse/ParseDiagnostic.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/DiagnosticParseKinds.inc:
@@ -226,20 +320,6 @@
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/Lexer.h:
 
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LangOptions.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/CommentOptions.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/ObjCRuntime.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/VersionTuple.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Sanitizers.def:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/LangOptions.def:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/OpenCLExtensions.def:
-
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/PreprocessorLexer.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/MultipleIncludeOpt.h:
@@ -254,12 +334,6 @@
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/DirectoryLookup.h:
 
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/SourceManager.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/FileManager.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/FileSystemOptions.h:
-
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/ModuleLoader.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Module.h:
@@ -271,8 +345,6 @@
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Lex/TokenLexer.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/DeclSpec.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/Lambda.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/AttributeList.h:
 
@@ -290,23 +362,7 @@
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/Attrs.inc:
 
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ExprObjC.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclObjC.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/SelectorLocationsKind.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/LambdaMangleContext.h:
-
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/NSAPI.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/PrettyPrinter.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/TypeLoc.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/TypeLocNodes.def:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Basic/ExpressionTraits.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/AnalysisBasedWarnings.h:
 
@@ -323,14 +379,6 @@
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/ScopeInfo.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/TypoCorrection.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/DeclCXX.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ASTUnresolvedSet.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/UnresolvedSet.h:
-
-/home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/AST/ExprCXX.h:
 
 /home/luis/iniciacao/clang-omp/llvm/tools/clang/lib/Parse/../../include/clang/Sema/Scope.h:
 
