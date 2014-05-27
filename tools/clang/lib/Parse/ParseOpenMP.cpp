@@ -19,10 +19,17 @@
 #include "clang/Parse/ParseDiagnostic.h"
 #include "clang/Parse/Parser.h"
 #include "clang/Sema/Scope.h"
+#include "llvm/ExecutionEngine/ExecutionEngine.h"
 #include "llvm/ADT/PointerIntPair.h"
 #include "RAIIObjectsForParser.h"
 #include "llvm/Support/raw_ostream.h"
 using namespace clang;
+
+extern "C" 
+int initOMPCheck() 
+{ 
+        return 1; 
+} 
 
 //===----------------------------------------------------------------------===//
 // OpenMP declarative directives.
@@ -212,7 +219,7 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
 				if (SDKind2 == OMPD_check) {
 					printf("----------CHECK----------\n");
 					insertFunction = true;
-					DKind = OMPD_parallel_for;
+					DKind = OMPD_parallel_for_check;
 				     ConsumeToken();
 				}
 				else
@@ -244,6 +251,10 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
         NewDKind = OMPD_parallel_for;
       else if (DKind == OMPD_sections)
         NewDKind = OMPD_parallel_sections;
+      else if (DKind == OMPD_parallel_for_check) {
+        NewDKind = OMPD_parallel_for_check;
+		DKind = OMPD_parallel;
+	}
     } else if (DKind == OMPD_parallel_for || DKind == OMPD_parallel_sections)
       NewDKind = OMPD_parallel;
     Actions.StartOpenMPDSABlock(NewDKind, DirName, Actions.getCurScope());
@@ -391,6 +402,7 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
 
 	printf("--1--\n");
 	if(insertFunction) {
+
 		/*DeclContext *DC = Actions.CurContext;
 		QualType Type = Context->VoidPtrTy;
 		IdentifierInfo *II = &Actions.PP.getIdentifierTable().get("initOMPCheck");
@@ -400,7 +412,7 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
 
 		Actions.InstantiateStaticDataMemberDefinition(Loc, Decl);*/
 
-		printf("--2--\n");
+		/*printf("--2--\n");
 		IdentifierInfo *II = &Context->Idents.getOwn("initOMPCheck");
 		printf("--3--|%s\n",II->getName());
 		QualType FType = Context->getFunctionNoProtoType(Context->VoidPtrTy);
@@ -410,9 +422,10 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
                                                Loc,
                                                II, FType, 0,
                                                SC_Extern);
-		printf("--5--\n");		
+		printf("--5--|	\n");
+		//Actions.LookupOrCreateLabel(II, Loc, Loc);
 		Actions.InstantiateFunctionDefinition(Loc, FD, false, false);
-		printf("--6--\n");
+		printf("--6--\n");*/
 	}
 
   return Directive;

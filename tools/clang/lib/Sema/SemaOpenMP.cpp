@@ -11,6 +11,7 @@
 ///
 //===----------------------------------------------------------------------===//
 
+#include <stdio.h>
 #include "clang/Basic/OpenMPKinds.h"
 #include "clang/AST/ASTConsumer.h"
 #include "clang/AST/Decl.h"
@@ -54,6 +55,7 @@ class DSAStackTy {
     OpenMPDirectiveKind Directive;
     DeclarationNameInfo DirectiveName;
     bool IsOrdered;
+    bool IsCheck;
     Scope *CurScope;
     SharingMapTy(OpenMPDirectiveKind DKind,
                  const DeclarationNameInfo &Name,
@@ -140,6 +142,10 @@ public:
   /// \brief Marks current regions as ordered.
   void setOrdered() {
     Stack.back().IsOrdered = true;
+  }
+
+  void setCheck() {
+    Stack.back().IsCheck = true;
   }
 
   /// \brief Marks current regions as ordered.
@@ -422,6 +428,13 @@ void Sema::DestroyDataSharingAttributesStack() {
 void Sema::StartOpenMPDSABlock(OpenMPDirectiveKind DKind,
                                const DeclarationNameInfo &DirName,
                                Scope *CurScope) {
+
+	if (DKind == OMPD_parallel_for_check) {
+		printf("=====CHECK=======\n");
+		DSAStack->setCheck();
+		DKind = OMPD_parallel;
+	  }
+
   DSAStack->push(DKind, DirName, CurScope);
 
   if (DKind == OMPD_parallel_for && DSAStack->isParentOrdered()) {
@@ -854,6 +867,7 @@ StmtResult Sema::ActOnOpenMPExecutableDirective(OpenMPDirectiveKind Kind,
     case OMPD_for:
     case OMPD_sections:
     case OMPD_parallel_for:
+    case OMPD_parallel_for_check:
     case OMPD_parallel_sections:
     case OMPD_single:
       // Worksharing region
@@ -867,7 +881,7 @@ StmtResult Sema::ActOnOpenMPExecutableDirective(OpenMPDirectiveKind Kind,
       //  A master region may not be closely nested inside a worksharing, atomic,
       //  or explicit task region.
       NestingProhibited = Kind == OMPD_for || Kind == OMPD_sections ||
-                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_sections ||
+                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_for_check || Kind == OMPD_parallel_sections ||
                           Kind == OMPD_single || Kind == OMPD_master ||
                           Kind == OMPD_barrier;
       Region = "a worksharing";
@@ -887,7 +901,7 @@ StmtResult Sema::ActOnOpenMPExecutableDirective(OpenMPDirectiveKind Kind,
       //  An ordered region may not be closely nested inside a critical, atomic,
       //  or explicit task region.
       NestingProhibited = Kind == OMPD_for || Kind == OMPD_sections ||
-                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_sections ||
+                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_for_check || Kind == OMPD_parallel_sections ||
                           Kind == OMPD_single || Kind == OMPD_master ||
                           Kind == OMPD_barrier || Kind == OMPD_ordered;
       Region = "explicit task";
@@ -900,7 +914,7 @@ StmtResult Sema::ActOnOpenMPExecutableDirective(OpenMPDirectiveKind Kind,
       //  A barrier region may not be closely nested inside a worksharing,
       //  explicit task, critical, ordered, atomic, or master region.
       NestingProhibited = Kind == OMPD_for || Kind == OMPD_sections ||
-                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_sections ||
+                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_for_check || Kind == OMPD_parallel_sections ||
                           Kind == OMPD_single || Kind == OMPD_barrier;
       Region = "a master";
       break;
@@ -915,7 +929,7 @@ StmtResult Sema::ActOnOpenMPExecutableDirective(OpenMPDirectiveKind Kind,
       //  An ordered region may not be closely nested inside a critical, atomic,
       //  or explicit task region.
       NestingProhibited = Kind == OMPD_for || Kind == OMPD_sections ||
-                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_sections ||
+                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_for_check || Kind == OMPD_parallel_sections ||
                           Kind == OMPD_single || HasNamedDirective ||
                           Kind == OMPD_barrier || Kind == OMPD_ordered;
       Region = "a critical";
@@ -937,7 +951,7 @@ StmtResult Sema::ActOnOpenMPExecutableDirective(OpenMPDirectiveKind Kind,
       //  parallel, flush, critical, atomic, taskyield, and explicit task regions
       //  may not be closely nested inside an atomic region.
       NestingProhibited = Kind == OMPD_for || Kind == OMPD_sections ||
-                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_sections ||
+                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_for_check || Kind == OMPD_parallel_sections ||
                           Kind == OMPD_single || Kind == OMPD_master ||
                           Kind == OMPD_barrier || Kind == OMPD_parallel ||
                           Kind == OMPD_critical || Kind == OMPD_atomic ||
@@ -956,7 +970,7 @@ StmtResult Sema::ActOnOpenMPExecutableDirective(OpenMPDirectiveKind Kind,
       //  A master region may not be closely nested inside a worksharing, atomic,
       //  or explicit task region.
       NestingProhibited = Kind == OMPD_for || Kind == OMPD_sections ||
-                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_sections ||
+                          Kind == OMPD_parallel_for || Kind == OMPD_parallel_for_check || Kind == OMPD_parallel_sections ||
                           Kind == OMPD_single || Kind == OMPD_master ||
                           Kind == OMPD_barrier;
       Region = "an ordered";
@@ -1025,6 +1039,7 @@ StmtResult Sema::ActOnOpenMPExecutableDirective(OpenMPDirectiveKind Kind,
     Res = ActOnOpenMPParallelDirective(ClausesWithImplicit, AStmt, StartLoc, EndLoc);
     break;
   case OMPD_parallel_for:
+  case OMPD_parallel_for_check:
   case OMPD_for:
     Res = ActOnOpenMPForDirective(Kind, ClausesWithImplicit, AStmt, StartLoc, EndLoc);
     break;
