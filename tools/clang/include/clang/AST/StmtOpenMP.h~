@@ -1170,7 +1170,7 @@ public:
 /// In this example directive '#pragma omp for' has clause 'nowait'.
 ///
 class OMPNowaitClause : public OMPClause {
-public:
+public:wait
   /// \brief Build 'nowait' clause.
   ///
   /// \param StartLoc Starting location of the clause.
@@ -1186,6 +1186,30 @@ public:
 
   static bool classof(const OMPClause *T) {
     return T->getClauseKind() == OMPC_nowait;
+  }
+
+  StmtRange children() {
+    return StmtRange();
+  }
+};
+
+class OMPCheckClause : public OMPClause {
+public:
+  /// \brief Build 'ordered' clause.
+  ///
+  /// \param StartLoc Starting location of the clause.
+  /// \param EndLoc Ending location of the clause.
+  ///
+  OMPCheckClause(SourceLocation StartLoc, SourceLocation EndLoc)
+    : OMPClause(OMPC_check, StartLoc, EndLoc) { }
+
+  /// \brief Build an empty clause.
+  ///
+  explicit OMPCheckClause()
+    : OMPClause(OMPC_check, SourceLocation(), SourceLocation()) { }
+
+  static bool classof(const OMPClause *T) {
+    return T->getClauseKind() == OMPC_check;
   }
 
   StmtRange children() {

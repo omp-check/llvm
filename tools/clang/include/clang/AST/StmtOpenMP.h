@@ -1193,6 +1193,30 @@ public:
   }
 };
 
+class OMPCheckClause : public OMPClause {
+public:
+  /// \brief Build 'ordered' clause.
+  ///
+  /// \param StartLoc Starting location of the clause.
+  /// \param EndLoc Ending location of the clause.
+  ///
+  OMPCheckClause(SourceLocation StartLoc, SourceLocation EndLoc)
+    : OMPClause(OMPC_check, StartLoc, EndLoc) { }
+
+  /// \brief Build an empty clause.
+  ///
+  explicit OMPCheckClause()
+    : OMPClause(OMPC_check, SourceLocation(), SourceLocation()) { }
+
+  static bool classof(const OMPClause *T) {
+    return T->getClauseKind() == OMPC_check;
+  }
+
+  StmtRange children() {
+    return StmtRange();
+  }
+};
+
 /// \brief This represents 'untied' clause in the '#pragma omp ...'
 /// directive.
 ///

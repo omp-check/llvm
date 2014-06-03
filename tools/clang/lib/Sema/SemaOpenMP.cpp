@@ -2334,6 +2334,9 @@ OMPClause *Sema::ActOnOpenMPClause(OpenMPClauseKind Kind,
   case OMPC_nowait:
     Res = ActOnOpenMPNowaitClause(StartLoc, EndLoc);
     break;
+  case OMPC_check:
+    Res = ActOnOpenMPCheckClause(StartLoc, EndLoc);
+    break;
   case OMPC_untied:
     Res = ActOnOpenMPUntiedClause(StartLoc, EndLoc);
     break;
@@ -2370,6 +2373,11 @@ OMPClause *Sema::ActOnOpenMPOrderedClause(SourceLocation StartLoc,
 OMPClause *Sema::ActOnOpenMPNowaitClause(SourceLocation StartLoc,
                                          SourceLocation EndLoc) {
   return new (Context) OMPNowaitClause(StartLoc, EndLoc);
+}
+
+OMPClause *Sema::ActOnOpenMPCheckClause(SourceLocation StartLoc,
+                                         SourceLocation EndLoc) {
+  return new (Context) OMPCheckClause(StartLoc, EndLoc);
 }
 
 OMPClause *Sema::ActOnOpenMPUntiedClause(SourceLocation StartLoc,

@@ -743,6 +743,10 @@ void OMPClausePrinter::VisitOMPNowaitClause(OMPNowaitClause *Node) {
   OS << "nowait";
 }
 
+void OMPClausePrinter::VisitOMPCheckClause(OMPCheckClause *Node) {
+  OS << "check";
+}
+
 void OMPClausePrinter::VisitOMPUntiedClause(OMPUntiedClause *Node) {
   OS << "untied";
 }

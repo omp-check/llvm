@@ -3229,6 +3229,14 @@ bool CodeGenModule::OpenMPSupportStackTy::getNoWait() {
   return OpenMPStack.back().NoWait;
 }
 
+void CodeGenModule::OpenMPSupportStackTy::setCheck(bool Flag) {
+  OpenMPStack.back().Check = Flag;
+}
+
+bool CodeGenModule::OpenMPSupportStackTy::getCheck() {
+  return OpenMPStack.back().Check;
+}
+
 void CodeGenModule::OpenMPSupportStackTy::setScheduleChunkSize(
                                                int Sched,
                                                const Expr *Size) {

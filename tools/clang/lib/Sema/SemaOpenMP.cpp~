@@ -37,7 +37,7 @@ namespace {
 enum DefaultDataSharingAttributes {
   DSA_unspecified = 0,   /// \brief Data sharing attribute not specified.
   DSA_none = 1 << 0,     /// \brief Default data sharing attribute 'none'.
-  DSA_shared = 1 << 1,    /// \brief Default data sharing attribute 'shared'.
+  DSA_shared = 1 << 1    /// \brief Default data sharing attribute 'shared'.
 };
 
 /// \brief Stack for tracking declarations used in OpenMP directives and

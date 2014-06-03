@@ -1719,6 +1719,9 @@ OMPClause *OMPClauseReader::readClause() {
   case OMPC_nowait:
     C = new (Context) OMPNowaitClause();
     break;
+  case OMPC_check:
+    C = new (Context) OMPCheckClause();
+    break;
   case OMPC_untied:
     C = new (Context) OMPUntiedClause();
     break;

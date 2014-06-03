@@ -1023,6 +1023,7 @@ public:
       llvm::Value *UntiedSwitch;
       llvm::BasicBlock *UntiedEnd;
       bool NoWait;
+      bool Check;
       bool Mergeable;
       bool Ordered;
       int Schedule;
@@ -1125,6 +1126,8 @@ public:
     unsigned getNumberOfReductionVars();
     void setNoWait(bool Flag);
     bool getNoWait();
+    void setCheck(bool Flag);
+    bool getCheck();
     void setScheduleChunkSize(int Sched, const Expr *Size);
     void getScheduleChunkSize(int &Sched, const Expr *&Size);
     void setMergeable(bool Flag);

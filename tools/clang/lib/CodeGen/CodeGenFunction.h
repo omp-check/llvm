@@ -2308,6 +2308,8 @@ public:
                             const OMPExecutableDirective &S);
   void EmitInitOMPNowaitClause(const OMPNowaitClause &C,
                                const OMPExecutableDirective &S);
+  void EmitInitOMPCheckClause(const OMPCheckClause &C,
+                               const OMPExecutableDirective &S);
   void EmitInitOMPOrderedClause(const OMPOrderedClause &C,
                                 const OMPExecutableDirective &S);
   void EmitInitOMPUntiedClause(const OMPUntiedClause &C,

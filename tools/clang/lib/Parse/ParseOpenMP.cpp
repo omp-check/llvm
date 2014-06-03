@@ -210,9 +210,9 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
 			getOpenMPDirectiveKind(PP.getSpelling(SavedToken));
 
 		if (SDKind == OMPD_for) {
-			SavedToken2 = PP.LookAhead(1);
+			//SavedToken2 = PP.LookAhead(1);
 	      	if (!SavedToken2.isAnnotation()) {
-				printf("----------TOKEN2----------\n");
+			/*	printf("----------TOKEN2----------\n");
 				OpenMPDirectiveKind SDKind2 =
 					getOpenMPDirectiveKind(PP.getSpelling(SavedToken2));
 
@@ -222,7 +222,7 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
 					DKind = OMPD_parallel_for_check;
 				     ConsumeToken();
 				}
-				else
+				else*/
 					DKind = OMPD_parallel_for;
 			}
 			ConsumeToken();
@@ -233,7 +233,6 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
       }
     }
   case OMPD_for:
-  case OMPD_check:
   case OMPD_sections:
   case OMPD_section:
   case OMPD_single:
@@ -394,39 +393,6 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
     SkipUntil(tok::annot_pragma_openmp_end, false);
     break;
   }
-	
-	ASTContext *Context;
-	TranslationUnitDecl *TUDecl;// = &Actions.getTranslationUnitDecl();
-
-	Context = &Actions.getASTContext();
-
-	printf("--1--\n");
-	if(insertFunction) {
-
-		/*DeclContext *DC = Actions.CurContext;
-		QualType Type = Context->VoidPtrTy;
-		IdentifierInfo *II = &Actions.PP.getIdentifierTable().get("initOMPCheck");
-		TypeSourceInfo *TInfo = Actions.Context.getTrivialTypeSourceInfo(Type, Loc);
-		VarDecl *Decl = VarDecl::Create(Actions.Context, DC, Loc, Loc, II, Type,TInfo, SC_None);
-		Decl->setImplicit();
-
-		Actions.InstantiateStaticDataMemberDefinition(Loc, Decl);*/
-
-		/*printf("--2--\n");
-		IdentifierInfo *II = &Context->Idents.getOwn("initOMPCheck");
-		printf("--3--|%s\n",II->getName());
-		QualType FType = Context->getFunctionNoProtoType(Context->VoidPtrTy);
-		printf("--4--|%s\n", FType);
-		FunctionDecl *FD = FunctionDecl::Create(*Context, TUDecl,
-                                               Loc,
-                                               Loc,
-                                               II, FType, 0,
-                                               SC_Extern);
-		printf("--5--|	\n");
-		//Actions.LookupOrCreateLabel(II, Loc, Loc);
-		Actions.InstantiateFunctionDefinition(Loc, FD, false, false);
-		printf("--6--\n");*/
-	}
 
   return Directive;
 }
@@ -551,6 +517,7 @@ OMPClause *Parser::ParseOpenMPClause(OpenMPDirectiveKind DKind,
     break;
   case OMPC_ordered:
   case OMPC_nowait:
+  case OMPC_check:
   case OMPC_untied:
   case OMPC_mergeable:
   case OMPC_read:

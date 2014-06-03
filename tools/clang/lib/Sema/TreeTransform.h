@@ -1449,6 +1449,11 @@ public:
     return getSema().ActOnOpenMPNowaitClause(StartLoc, EndLoc);
   }
 
+  OMPClause *RebuildOMPCheckClause(SourceLocation StartLoc,
+                                    SourceLocation EndLoc) {
+    return getSema().ActOnOpenMPCheckClause(StartLoc, EndLoc);
+  }
+
   /// \brief Build a new OpenMP 'untied' clause.
   ///
   /// By default, performs semantic analysis to build the new statement.
@@ -6859,6 +6864,12 @@ template<typename Derived>
 OMPClause *
 TreeTransform<Derived>::TransformOMPNowaitClause(OMPNowaitClause *C) {
   return getDerived().RebuildOMPNowaitClause(C->getLocStart(), C->getLocEnd());
+}
+
+template<typename Derived>
+OMPClause *
+TreeTransform<Derived>::TransformOMPCheckClause(OMPCheckClause *C) {
+  return getDerived().RebuildOMPCheckClause(C->getLocStart(), C->getLocEnd());
 }
 
 template<typename Derived>
