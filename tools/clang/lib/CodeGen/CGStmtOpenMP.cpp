@@ -149,6 +149,9 @@ typedef void (__kmpc_omp_task_complete_if0)(ident_t * loc, int32_t gtid, kmp_tas
 typedef int32_t (__kmpc_omp_task_parts)(ident_t * loc, int32_t gtid, kmp_task_t *task);
 typedef void (__kmpc_taskgroup)(ident_t *loc, int32_t global_tid);
 typedef void (__kmpc_end_taskgroup)(ident_t *loc, int32_t global_tid);
+
+
+typedef void (__kmpc_init_OMPCheck)(ident_t *loc);
 }
 
 namespace llvm {
@@ -174,6 +177,7 @@ public:
     psource
   };
 };
+
 ///   ident_t
 template <bool X>
 class TypeBuilder<kmp_task_t, X> {
@@ -554,16 +558,16 @@ void CodeGenFunction::EmitOMPParallelDirective(const OMPParallelDirective &S) {
        I != E; ++I)
     if (*I) EmitAfterInitOMPClause(*(*I), S);
 
-  bool Check = CGM.OpenMPSupport.getCheck();
+  //bool Check = CGM.OpenMPSupport.getCheck();
 
   // Generate microtask.
   // void .omp_microtask.(int32_t *, int32_t *, void */*AutoGenRecord **/arg3) {
   //  captured_stmt(arg3);
   // }
   IdentifierInfo *Id = &getContext().Idents.get(".omp_microtask.");
-	if (Check) {
+	/*if (Check) {
 		printf(" === CHECK ===\n");
-	}
+	}*/
   QualType PtrIntTy = getContext().getPointerType(getContext().IntTy);
   SmallVector<QualType, 4> FnArgTypes;
   FnArgTypes.push_back(PtrIntTy);

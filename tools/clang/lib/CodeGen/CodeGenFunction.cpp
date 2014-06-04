@@ -540,6 +540,7 @@ void CodeGenFunction::StartFunction(GlobalDecl GD,
 
     DI->setLocation(StartLoc);
     DI->EmitFunctionStart(GD, FnType, CurFn, Builder);
+	
   }
 
   if (ShouldInstrumentFunction())
@@ -548,6 +549,12 @@ void CodeGenFunction::StartFunction(GlobalDecl GD,
   if (CGM.getCodeGenOpts().InstrumentForProfiling)
     EmitMCountInstrumentation();
 
+	//bool Check = getCheck();
+	bool Check = true;
+
+	if (Check) {
+		CreateIRTemp(RetTy, "initOMPCheck");
+	}
   if (RetTy->isVoidType()) {
     // Void type; nothing to return.
     ReturnValue = 0;

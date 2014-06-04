@@ -589,6 +589,10 @@ public:
   QualType FnRetTy;
   llvm::Function *CurFn;
 
+  bool getCheck() {
+	return CGM.OpenMPSupport.getCheck();
+  }
+
   /// CurGD - The GlobalDecl for the current function being compiled.
   GlobalDecl CurGD;
 
@@ -1397,6 +1401,10 @@ public:
 
   bool shouldUseFusedARCCalls() {
     return CGM.getCodeGenOpts().OptimizationLevel == 0;
+  }
+
+  bool getCheck() {
+    return CGM.OpenMPSupport.getCheck();
   }
 
   const LangOptions &getLangOpts() const { return CGM.getLangOpts(); }
@@ -2307,6 +2315,8 @@ public:
   void EmitFinalOMPIfClause(const OMPIfClause &C,
                             const OMPExecutableDirective &S);
   void EmitInitOMPNowaitClause(const OMPNowaitClause &C,
+                               const OMPExecutableDirective &S);
+  void EmitInitOMPCheckClause(const OMPCheckClause &C,
                                const OMPExecutableDirective &S);
   void EmitInitOMPOrderedClause(const OMPOrderedClause &C,
                                 const OMPExecutableDirective &S);

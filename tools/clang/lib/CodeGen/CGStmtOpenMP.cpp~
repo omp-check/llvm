@@ -149,6 +149,9 @@ typedef void (__kmpc_omp_task_complete_if0)(ident_t * loc, int32_t gtid, kmp_tas
 typedef int32_t (__kmpc_omp_task_parts)(ident_t * loc, int32_t gtid, kmp_task_t *task);
 typedef void (__kmpc_taskgroup)(ident_t *loc, int32_t global_tid);
 typedef void (__kmpc_end_taskgroup)(ident_t *loc, int32_t global_tid);
+
+
+typedef void (__kmpc_init_OMPCheck)(ident_t *loc);
 }
 
 namespace llvm {
@@ -174,6 +177,7 @@ public:
     psource
   };
 };
+
 ///   ident_t
 template <bool X>
 class TypeBuilder<kmp_task_t, X> {

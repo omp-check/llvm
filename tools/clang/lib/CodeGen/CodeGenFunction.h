@@ -589,6 +589,10 @@ public:
   QualType FnRetTy;
   llvm::Function *CurFn;
 
+  bool getCheck() {
+	return CGM.OpenMPSupport.getCheck();
+  }
+
   /// CurGD - The GlobalDecl for the current function being compiled.
   GlobalDecl CurGD;
 
