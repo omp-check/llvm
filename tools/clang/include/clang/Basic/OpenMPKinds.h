@@ -26,7 +26,6 @@ enum OpenMPDirectiveKind {
   OMPD_##Name,
 #include "clang/Basic/OpenMPKinds.def"
   OMPD_parallel_for,
-    OMPD_parallel_for_check,
   OMPD_parallel_sections,
   NUM_OPENMP_DIRECTIVES
 };

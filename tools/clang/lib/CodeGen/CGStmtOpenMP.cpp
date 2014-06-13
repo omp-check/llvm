@@ -34,7 +34,16 @@
 using namespace clang;
 using namespace CodeGen;
 
+extern "C"
+int yipee(int val) 
+{ 
+        fprintf(stderr, "yipee!"); 
+
+        return 1; 
+} 
+
 namespace {
+bool Check;
 struct ident_t{};
 enum sched_type {};
 typedef void (*kmpc_micro)(int32_t *global_tid, int32_t *bound_tid, ...);
@@ -150,8 +159,6 @@ typedef int32_t (__kmpc_omp_task_parts)(ident_t * loc, int32_t gtid, kmp_task_t 
 typedef void (__kmpc_taskgroup)(ident_t *loc, int32_t global_tid);
 typedef void (__kmpc_end_taskgroup)(ident_t *loc, int32_t global_tid);
 
-
-typedef void (__kmpc_init_OMPCheck)(ident_t *loc);
 }
 
 namespace llvm {
@@ -558,16 +565,13 @@ void CodeGenFunction::EmitOMPParallelDirective(const OMPParallelDirective &S) {
        I != E; ++I)
     if (*I) EmitAfterInitOMPClause(*(*I), S);
 
-  //bool Check = CGM.OpenMPSupport.getCheck();
 
+	Check = CGM.OpenMPSupport.getCheck();
   // Generate microtask.
   // void .omp_microtask.(int32_t *, int32_t *, void */*AutoGenRecord **/arg3) {
   //  captured_stmt(arg3);
   // }
   IdentifierInfo *Id = &getContext().Idents.get(".omp_microtask.");
-	/*if (Check) {
-		printf(" === CHECK ===\n");
-	}*/
   QualType PtrIntTy = getContext().getPointerType(getContext().IntTy);
   SmallVector<QualType, 4> FnArgTypes;
   FnArgTypes.push_back(PtrIntTy);
@@ -698,6 +702,7 @@ void CodeGenFunction::EmitOMPForDirective(const OMPForDirective &S) {
   CGM.OpenMPSupport.setNoWait(false);
   CGM.OpenMPSupport.setMergeable(true);
   CGM.OpenMPSupport.setOrdered(false);
+  //CGM.OpenMPSupport.setCheck(false);
 
   // Generate shared args for captured stmt.
   //CapturedStmt *CS = cast<CapturedStmt>(S.getAssociatedStmt());
@@ -924,7 +929,17 @@ void CodeGenFunction::EmitOMPForDirective(const OMPForDirective &S) {
                            Builder.CreateICmpULE(Idx, UB, "omp.idx.le.ub");
       //llvm::BasicBlock *PrevBB = Builder.GetInsertBlock();
       Builder.CreateCondBr(UBLBCheck, UBLBCheckBB, FiniBB);
+
       EmitBlock(UBLBCheckBB);
+	if (Check) {
+		printf(" === CHECK ===\n");
+	
+		//Builder.CreateCall(Idx, "initOMPCheck");
+		llvm::BasicBlock * CheckBeginBB = createBasicBlock("omp.check.start");
+     	 EmitBranch(CheckBeginBB);
+     	 EmitBlock(CheckBeginBB);
+//		CreateIRTemp(getContext().getPointerType(getContext().VoidTy), "initOMPCheck");
+	}
       llvm::BasicBlock *ContBlock = createBasicBlock("omp.cont.block");
 
       BreakContinueStack.push_back(BreakContinue(getJumpDestInCurrentScope(EndBB),
@@ -934,6 +949,15 @@ void CodeGenFunction::EmitOMPForDirective(const OMPForDirective &S) {
         EmitStmt(Body);
       }
       BreakContinueStack.pop_back();
+
+		if (Check) {
+	
+		//Builder.CreateCall(Idx, "initOMPCheck");
+		llvm::BasicBlock * CheckEndBB = createBasicBlock("omp.check.end");
+     	 EmitBranch(CheckEndBB);
+     	 EmitBlock(CheckEndBB);
+//		CreateIRTemp(getContext().getPointerType(getContext().VoidTy), "initOMPCheck");
+	}
       EnsureInsertPoint();
       EmitBranch(ContBlock);
       EmitBlock(ContBlock);

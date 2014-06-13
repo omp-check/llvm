@@ -25,12 +25,6 @@
 #include "llvm/Support/raw_ostream.h"
 using namespace clang;
 
-extern "C" 
-int initOMPCheck() 
-{ 
-        return 1; 
-} 
-
 //===----------------------------------------------------------------------===//
 // OpenMP declarative directives.
 //===----------------------------------------------------------------------===//
@@ -210,21 +204,7 @@ StmtResult Parser::ParseOpenMPDeclarativeOrExecutableDirective(
 			getOpenMPDirectiveKind(PP.getSpelling(SavedToken));
 
 		if (SDKind == OMPD_for) {
-			//SavedToken2 = PP.LookAhead(1);
-	      	if (!SavedToken2.isAnnotation()) {
-			/*	printf("----------TOKEN2----------\n");
-				OpenMPDirectiveKind SDKind2 =
-					getOpenMPDirectiveKind(PP.getSpelling(SavedToken2));
-
-				if (SDKind2 == OMPD_check) {
-					printf("----------CHECK----------\n");
-					insertFunction = true;
-					DKind = OMPD_parallel_for_check;
-				     ConsumeToken();
-				}
-				else*/
-					DKind = OMPD_parallel_for;
-			}
+			DKind = OMPD_parallel_for;
 			ConsumeToken();
 		} else if (SDKind == OMPD_sections) {
 			DKind = OMPD_parallel_sections;

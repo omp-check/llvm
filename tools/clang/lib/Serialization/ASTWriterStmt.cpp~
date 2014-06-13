@@ -1837,8 +1837,6 @@ void OMPClauseWriter::VisitOMPOrderedClause(OMPOrderedClause *C) { }
 
 void OMPClauseWriter::VisitOMPNowaitClause(OMPNowaitClause *C) { }
 
-void OMPClauseWriter::VisitOMPCheckClause(OMPCheckClause *C) { }
-
 void OMPClauseWriter::VisitOMPUntiedClause(OMPUntiedClause *C) { }
 
 void OMPClauseWriter::VisitOMPMergeableClause(OMPMergeableClause *C) { }

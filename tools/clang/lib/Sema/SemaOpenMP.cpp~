@@ -55,7 +55,6 @@ class DSAStackTy {
     OpenMPDirectiveKind Directive;
     DeclarationNameInfo DirectiveName;
     bool IsOrdered;
-    bool IsCheck;
     Scope *CurScope;
     SharingMapTy(OpenMPDirectiveKind DKind,
                  const DeclarationNameInfo &Name,
@@ -142,10 +141,6 @@ public:
   /// \brief Marks current regions as ordered.
   void setOrdered() {
     Stack.back().IsOrdered = true;
-  }
-
-  void setCheck() {
-    Stack.back().IsCheck = true;
   }
 
   /// \brief Marks current regions as ordered.
@@ -428,12 +423,6 @@ void Sema::DestroyDataSharingAttributesStack() {
 void Sema::StartOpenMPDSABlock(OpenMPDirectiveKind DKind,
                                const DeclarationNameInfo &DirName,
                                Scope *CurScope) {
-
-	if (DKind == OMPD_parallel_for_check) {
-		printf("=====CHECK=======\n");
-		DSAStack->setCheck();
-		DKind = OMPD_parallel;
-	  }
 
   DSAStack->push(DKind, DirName, CurScope);
 
@@ -867,7 +856,6 @@ StmtResult Sema::ActOnOpenMPExecutableDirective(OpenMPDirectiveKind Kind,
     case OMPD_for:
     case OMPD_sections:
     case OMPD_parallel_for:
-    case OMPD_parallel_for_check:
     case OMPD_parallel_sections:
     case OMPD_single:
       // Worksharing region
@@ -2334,6 +2322,9 @@ OMPClause *Sema::ActOnOpenMPClause(OpenMPClauseKind Kind,
   case OMPC_nowait:
     Res = ActOnOpenMPNowaitClause(StartLoc, EndLoc);
     break;
+  case OMPC_check:
+    Res = ActOnOpenMPCheckClause(StartLoc, EndLoc);
+    break;
   case OMPC_untied:
     Res = ActOnOpenMPUntiedClause(StartLoc, EndLoc);
     break;
@@ -2370,6 +2361,11 @@ OMPClause *Sema::ActOnOpenMPOrderedClause(SourceLocation StartLoc,
 OMPClause *Sema::ActOnOpenMPNowaitClause(SourceLocation StartLoc,
                                          SourceLocation EndLoc) {
   return new (Context) OMPNowaitClause(StartLoc, EndLoc);
+}
+
+OMPClause *Sema::ActOnOpenMPCheckClause(SourceLocation StartLoc,
+                                         SourceLocation EndLoc) {
+  return new (Context) OMPCheckClause(StartLoc, EndLoc);
 }
 
 OMPClause *Sema::ActOnOpenMPUntiedClause(SourceLocation StartLoc,

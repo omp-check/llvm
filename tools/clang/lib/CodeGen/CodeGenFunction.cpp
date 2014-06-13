@@ -550,7 +550,7 @@ void CodeGenFunction::StartFunction(GlobalDecl GD,
     EmitMCountInstrumentation();
 
 	//bool Check = getCheck();
-	bool Check = true;
+	bool Check = false;
 
 	if (Check) {
 		CreateIRTemp(RetTy, "initOMPCheck");
