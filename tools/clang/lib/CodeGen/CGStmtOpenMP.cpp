@@ -31,6 +31,7 @@
 #include "llvm/IR/TypeBuilder.h"
 #include "llvm/ADT/StringExtras.h"
 #include "llvm/Support/CallSite.h"
+
 using namespace clang;
 using namespace CodeGen;
 
@@ -567,6 +568,7 @@ void CodeGenFunction::EmitOMPParallelDirective(const OMPParallelDirective &S) {
 
 
 	Check = CGM.OpenMPSupport.getCheck();
+	
   // Generate microtask.
   // void .omp_microtask.(int32_t *, int32_t *, void */*AutoGenRecord **/arg3) {
   //  captured_stmt(arg3);
@@ -590,6 +592,7 @@ void CodeGenFunction::EmitOMPParallelDirective(const OMPParallelDirective &S) {
                                           CS->getLocStart(), SourceLocation(),
                                           Id, FnTy, TI, SC_Static, false, false,
                                           false);
+
   TypeSourceInfo *PtrIntTI =
          getContext().getTrivialTypeSourceInfo(PtrIntTy,
                                                SourceLocation());
@@ -611,6 +614,10 @@ void CodeGenFunction::EmitOMPParallelDirective(const OMPParallelDirective &S) {
   llvm::Function *Fn = llvm::Function::Create(getTypes().GetFunctionType(FI),
                                               llvm::GlobalValue::PrivateLinkage,
                                               FD->getName(), &CGM.getModule());
+	if(Check) {
+		printf("%s\n", Fn->getName());
+	}
+
   CGM.SetInternalFunctionAttributes(CurFuncDecl, Fn, FI);
   llvm::AttributeSet Set = CurFn->getAttributes();
   for (unsigned i = 0; i < Set.getNumSlots(); ++i) {
