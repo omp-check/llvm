@@ -11,6 +11,7 @@
 //===----------------------------------------------------------------------===//
 #define DEBUG_TYPE "insert-edge-profiling"
 
+#include <stdio.h>
 #include "llvm/Transforms/Instrumentation.h"
 #include "ProfilingUtils.h"
 #include "llvm/ADT/Statistic.h"
@@ -21,6 +22,7 @@
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include <set>
 #include <iostream>
+#include <vector>
 using namespace llvm;
 
 STATISTIC(NumCallsInserted, "The # of memory calls inserted");
@@ -78,11 +80,19 @@ void InsertProfilingCall(Function *Fn, const char *FnName, Value *Addr, unsigned
 
 bool MemoryProfiler::runOnModule(Module &M) {
   Function *Main = M.getFunction("main");
-  
-  Function *iterCount=M.getFunction("iterC");
-  
- 
-  
+
+	std::vector<Function *> v;
+
+	FILE * f = fopen("temp_check_functions.log", "r");
+
+	char str[50];
+	while(!feof(f)) {
+		fscanf(f, "%s\n", str);
+		v.push_back(M.getFunction(str));
+	}
+
+	for (std::vector<Function *>::iterator it = v.begin(); it != v.end(); ++it)
+		errs() << (*it)->getName() << '\n';
   
   if (Main == 0) {
     errs() << "WARNING: cannot insert memory profiling into a module"

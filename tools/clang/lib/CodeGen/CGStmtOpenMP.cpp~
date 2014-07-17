@@ -35,16 +35,9 @@
 using namespace clang;
 using namespace CodeGen;
 
-extern "C"
-int yipee(int val) 
-{ 
-        fprintf(stderr, "yipee!"); 
-
-        return 1; 
-} 
-
 namespace {
 bool Check;
+bool f_log = false;
 struct ident_t{};
 enum sched_type {};
 typedef void (*kmpc_micro)(int32_t *global_tid, int32_t *bound_tid, ...);
@@ -532,6 +525,7 @@ DEFAULT_GET_OPENMP_FUNC(end_taskgroup)
 static llvm::GlobalVariable *CreateRuntimeVariable(CodeGenModule &CGM,
                                                    StringRef MangledName,
                                                    llvm::Type *Ty) {
+
   llvm::PointerType *PtrTy = llvm::PointerType::getUnqual(Ty);
   unsigned AddrSpace = PtrTy->getAddressSpace();
   return new llvm::GlobalVariable(CGM.getModule(), Ty, false,
@@ -615,7 +609,15 @@ void CodeGenFunction::EmitOMPParallelDirective(const OMPParallelDirective &S) {
                                               llvm::GlobalValue::PrivateLinkage,
                                               FD->getName(), &CGM.getModule());
 	if(Check) {
-		printf("%s\n", Fn->getName());
+		FILE * f;
+		if(f_log)
+			f = fopen("temp_check_functions", "a");
+		else {
+			f = fopen("temp_check_functions", "w");
+			f_log = true;
+		}
+		fprintf(f, "%s\n", Fn->getName());
+		fclose(f);
 	}
 
   CGM.SetInternalFunctionAttributes(CurFuncDecl, Fn, FI);
