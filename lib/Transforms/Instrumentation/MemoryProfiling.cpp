@@ -64,7 +64,7 @@ void InsertProfilingCall(Function *Fn, const char *FnName, Value *Addr, unsigned
   Type *VoidTy = FunctionType::getVoidTy(Context);
   Type *UIntTy = Type::getInt32Ty(Context);
   Module &M = *Fn->getParent();
-  Type *StrTy= Type::getInt8PtrTy(Context);
+  //Type *StrTy= Type::getInt8PtrTy(Context);
   
   Constant *ProfFn = M.getOrInsertFunction(FnName, VoidTy, Addr->getType(), UIntTy, UIntTy,NULL);
 
@@ -91,8 +91,65 @@ bool MemoryProfiler::runOnModule(Module &M) {
 		v.push_back(M.getFunction(str));
 	}
 
-	for (std::vector<Function *>::iterator it = v.begin(); it != v.end(); ++it)
-		errs() << (*it)->getName() << '\n';
+	Value * iterador;
+	Value * tID;
+	bool instrumenta = false;
+	unsigned NumCalls = 0;
+	for (std::vector<Function *>::iterator it = v.begin(); it != v.end(); ++it) {
+		for (Function::iterator BB = (*it)->begin(), E = (*it)->end(); BB != E; BB++) {
+			if(BB->getName().compare("omp.loop.main") == 0) {
+				iterador = BB->begin()->getOperand(1);
+				errs() << " === ACHOU! : " << *(iterador) << "\n";
+
+				LLVMContext &Context = (*it)->getContext();
+				Type *UIntTy = Type::getInt32Ty(Context);
+
+				Module &M = *(*it)->getParent();
+				Constant *ProfFn = M.getOrInsertFunction("omp_get_thread_num", UIntTy, NULL);
+				tID = CallInst::Create(ProfFn, "", BB->begin());
+			}
+			else if(BB->getName().compare("omp.check.start") == 0) {
+				instrumenta = true;
+				errs() << " === START!\n";
+			}
+			else if (BB->getName().compare("omp.check.end") == 0) {
+				instrumenta = false;
+				errs() << " === END!\n";
+			}
+
+			if(instrumenta) {
+				errs() << " === INSTRUMENTANDO: " << BB->getName() << " em " << (*it)->getName() <<"\n";
+				for (BasicBlock::iterator I=BB->begin(), E= BB->end(); I!=E; ) {
+					Instruction *CurrentInst = I;
+					Instruction *NextInst= ++I;
+		
+					if (isa<LoadInst>(CurrentInst) || isa<StoreInst>(CurrentInst)) {
+						++NumCalls;
+						Value *Addr;
+						if (isa<LoadInst>(CurrentInst)) {
+							LoadInst *LI = dyn_cast<LoadInst>(CurrentInst);
+							Addr = LI->getPointerOperand();
+							errs() << "\tLOAD: " << *Addr << " - " << *iterador << " - " << *tID <<"\n";
+//						     InsertProfilingCall(*it,"llvm_memory_profiling", Addr, NumCalls, NextInst,0);
+						}
+						else
+						{
+							StoreInst *SI = dyn_cast<StoreInst>(CurrentInst);
+							Addr = SI->getPointerOperand();
+							errs() << "\tSTORE: " << *Addr << " - " << *iterador << " - " << *tID <<"\n";
+//						     InsertProfilingCall(*it,"llvm_memory_profiling", Addr, NumCalls, NextInst,1);
+						}
+			
+			
+						BB = SplitBlock(BB, NextInst, this);
+						E=BB->end();
+					}
+
+					I=NextInst;
+				}
+			}
+		}
+	}
   
   if (Main == 0) {
     errs() << "WARNING: cannot insert memory profiling into a module"
@@ -100,6 +157,7 @@ bool MemoryProfiler::runOnModule(Module &M) {
     return false;  // No main, no instrumentation!
   }
 
+/*
   std::set<BasicBlock*> BlocksToInstrument;
   unsigned NumCalls = 0;
   for (Module::iterator F = M.begin(), E = M.end(); F != E; ++F) {
@@ -158,15 +216,16 @@ bool MemoryProfiler::runOnModule(Module &M) {
 	BB=NextBB;
      
     }
-  }
+  }*/
 
-  NumCallsInserted = NumCalls;
+  NumCallsInserted = 0;
 
-  errs() << "The total number of load & store instructions: " << NumCalls << "\n";
+  errs() << "The total number of load & store instructions: " << NumCallsInserted << "\n";
 
+	
   
   // Add the initialization call to main.
-  InsertProfilingInitCall(Main, "llvm_start_memory_profiling");
+//  InsertProfilingInitCall(Main, "llvm_start_memory_profiling");
   return true;
 }
 
