@@ -94,5 +94,5 @@ void llvm_memory_profiling(void *addr, int index, int id, unsigned tipo) {
     long int threadId = 0;
     memcpy(&threadId, &ptid, min(sizeof(threadId), sizeof(ptid))); 
 
-   printf("The ID of this Thread is: %ld\n", id);
+   printf("The ID of this Thread is: %ld\n", threadId);
 }

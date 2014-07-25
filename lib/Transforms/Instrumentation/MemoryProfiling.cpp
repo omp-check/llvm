@@ -60,19 +60,20 @@ void InsertProfilingInitCall(Function *Fn, const char *FnName, Instruction *Inst
   CallInst::Create(ProfFn, "", Inst);
 }
 
-void InsertProfilingCall(Function *Fn, const char *FnName, Value *Addr, unsigned CallNO, Instruction *Inst, unsigned tipo) {
+void InsertProfilingCall(Function *Fn, const char *FnName, Value *Addr, unsigned CallNO, Instruction *Inst, unsigned tipo, Value *itNO, Value *tID) {
   LLVMContext &Context = Fn->getContext();
   Type *VoidTy = FunctionType::getVoidTy(Context);
   Type *UIntTy = Type::getInt32Ty(Context);
   Module &M = *Fn->getParent();
   //Type *StrTy= Type::getInt8PtrTy(Context);
   
-  Constant *ProfFn = M.getOrInsertFunction(FnName, VoidTy, Addr->getType(), UIntTy, UIntTy,NULL);
+  Constant *ProfFn = M.getOrInsertFunction(FnName, VoidTy, Addr->getType(), itNO->getType(), tID->getType(), UIntTy, NULL);
 
-  std::vector<Value*> Args(3);
+  std::vector<Value*> Args(4);
   Args[0] = Addr;
-  Args[1] = ConstantInt::get(UIntTy, CallNO);
-  Args[2] = ConstantInt::get(UIntTy, tipo);
+  Args[1] = itNO;
+  Args[2] = tID;
+  Args[3] = ConstantInt::get(UIntTy, tipo);
   //Args[3] = ConstantInt::get(StrTy, Fn->getName().data());
   
   CallInst::Create(ProfFn, Args, "", Inst);
@@ -137,20 +138,20 @@ bool MemoryProfiler::runOnModule(Module &M) {
 						if (isa<LoadInst>(CurrentInst)) {
 							LoadInst *LI = dyn_cast<LoadInst>(CurrentInst);
 							Addr = LI->getPointerOperand();
-							errs() << "\tLOAD: " << *Addr << " - " << *iterador << " - " << *tID <<"\n";
-//						     InsertProfilingCall(*it,"llvm_memory_profiling", Addr, NumCalls, NextInst,0);
+							errs() << "\tLOAD: " << *Addr << " - " << *indexValue << " - " << *tID <<"\n";
+						     InsertProfilingCall(*it,"llvm_memory_profiling", Addr, NumCalls, NextInst, 0, indexValue, tID);
 						}
 						else
 						{
 							StoreInst *SI = dyn_cast<StoreInst>(CurrentInst);
 							Addr = SI->getPointerOperand();
-							errs() << "\tSTORE: " << *Addr << " - " << *iterador << " - " << *tID <<"\n";
-//						     InsertProfilingCall(*it,"llvm_memory_profiling", Addr, NumCalls, NextInst,1);
+							errs() << "\tSTORE: " << *Addr << " - " << *indexValue << " - " << *tID <<"\n";
+						     InsertProfilingCall(*it,"llvm_memory_profiling", Addr, NumCalls, NextInst,1, indexValue, tID);
 						}
 			
 			
-						BB = SplitBlock(BB, NextInst, this);
-						E=BB->end();
+						//BB = SplitBlock(BB, NextInst, this);
+						//E=BB->end();
 					}
 
 					I=NextInst;
@@ -233,7 +234,7 @@ bool MemoryProfiler::runOnModule(Module &M) {
 	
   
   // Add the initialization call to main.
-//  InsertProfilingInitCall(Main, "llvm_start_memory_profiling");
+  InsertProfilingInitCall(Main, "llvm_start_memory_profiling");
   return true;
 }
 
