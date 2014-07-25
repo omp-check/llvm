@@ -18,6 +18,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/Pass.h"
+#include "llvm/IR/IRBuilder.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include <set>
@@ -25,7 +26,7 @@
 #include <vector>
 using namespace llvm;
 
-STATISTIC(NumCallsInserted, "The # of memory calls inserted");
+//STATISTIC(NumCallsInserted, "The # of memory calls inserted");
 
 namespace {
   class MemoryProfiler : public ModulePass {
@@ -93,23 +94,30 @@ bool MemoryProfiler::runOnModule(Module &M) {
 
 	Value * iterador;
 	Value * tID;
+	Value * indexValue;
 	bool instrumenta = false;
 	unsigned NumCalls = 0;
+	Function::iterator init, main;
 	for (std::vector<Function *>::iterator it = v.begin(); it != v.end(); ++it) {
+		instrumenta = false;
 		for (Function::iterator BB = (*it)->begin(), E = (*it)->end(); BB != E; BB++) {
-			if(BB->getName().compare("omp.loop.main") == 0) {
-				iterador = BB->begin()->getOperand(1);
-				errs() << " === ACHOU! : " << *(iterador) << "\n";
+			if(BB->getName().compare("omp.loop.init") == 0) {
+				init = BB;
+			}
+			else if(BB->getName().compare("omp.loop.main") == 0) {
+				main = BB;
+			}
+			else if(BB->getName().compare("omp.check.start") == 0) {
+				instrumenta = true;
+				iterador = main->begin()->getOperand(1);
 
 				LLVMContext &Context = (*it)->getContext();
 				Type *UIntTy = Type::getInt32Ty(Context);
 
 				Module &M = *(*it)->getParent();
 				Constant *ProfFn = M.getOrInsertFunction("omp_get_thread_num", UIntTy, NULL);
-				tID = CallInst::Create(ProfFn, "", BB->begin());
-			}
-			else if(BB->getName().compare("omp.check.start") == 0) {
-				instrumenta = true;
+				tID = CallInst::Create(ProfFn, "", init->begin());
+				indexValue = new LoadInst(iterador, "", BB->begin());
 				errs() << " === START!\n";
 			}
 			else if (BB->getName().compare("omp.check.end") == 0) {
@@ -218,9 +226,9 @@ bool MemoryProfiler::runOnModule(Module &M) {
     }
   }*/
 
-  NumCallsInserted = 0;
+//  NumCallsInserted = 0;
 
-  errs() << "The total number of load & store instructions: " << NumCallsInserted << "\n";
+//  errs() << "The total number of load & store instructions: " << NumCallsInserted << "\n";
 
 	
   
