@@ -96,7 +96,7 @@ bool MemoryProfiler::runOnModule(Module &M) {
 	Value * iterador;
 	Value * tID;
 	Value * indexValue;
-	bool instrumenta = false;
+	bool instrumenta = false, first = true;
 	unsigned NumCalls = 0;
 	Function::iterator init, main;
 	for (std::vector<Function *>::iterator it = v.begin(); it != v.end(); ++it) {
@@ -136,10 +136,15 @@ bool MemoryProfiler::runOnModule(Module &M) {
 						++NumCalls;
 						Value *Addr;
 						if (isa<LoadInst>(CurrentInst)) {
-							LoadInst *LI = dyn_cast<LoadInst>(CurrentInst);
-							Addr = LI->getPointerOperand();
-							errs() << "\tLOAD: " << *Addr << " - " << *indexValue << " - " << *tID <<"\n";
-						     InsertProfilingCall(*it,"llvm_memory_profiling", Addr, NumCalls, NextInst, 0, indexValue, tID);
+							if(!first) {
+								LoadInst *LI = dyn_cast<LoadInst>(CurrentInst);
+								Addr = LI->getPointerOperand();
+								errs() << "\tLOAD: " << *Addr << " - " << *indexValue << " - " << *tID <<"\n";
+								InsertProfilingCall(*it,"llvm_memory_profiling", Addr, NumCalls, NextInst, 0, indexValue, tID);
+							}
+							else {
+								first = false;
+							}
 						}
 						else
 						{

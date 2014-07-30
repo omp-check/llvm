@@ -90,9 +90,9 @@ void llvm_memory_profiling(void *addr, int index, int id, unsigned tipo) {
     else
         fprintf(stderr, "Store in %p in thread %d with iteration index %d\n", addr, id, index);
     
-    pthread_t ptid = pthread_self();
-    long int threadId = 0;
-    memcpy(&threadId, &ptid, min(sizeof(threadId), sizeof(ptid))); 
+//    pthread_t ptid = pthread_self();
+//    long int threadId = 0;
+//    memcpy(&threadId, &ptid, min(sizeof(threadId), sizeof(ptid))); 
 
    printf("The ID of this Thread is: %ld\n", id);
 }
