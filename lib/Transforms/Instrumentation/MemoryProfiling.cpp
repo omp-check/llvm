@@ -96,7 +96,7 @@ bool MemoryProfiler::runOnModule(Module &M) {
 	Value * iterador;
 	Value * tID;
 	Value * indexValue;
-	bool instrumenta = false, first = true;
+	bool instrumenta = false, first = true, cond = false;
 	unsigned NumCalls = 0;
 	int numLoops = 0, loop = 1;
 	Function::iterator init, main;
@@ -129,6 +129,7 @@ bool MemoryProfiler::runOnModule(Module &M) {
 			else if(BB->getName().startswith("for.cond")) {
 				errs() << " New loop: " << loop++ << "\n";
 				numLoops++;
+				cond = true;
 			}
 			else if(BB->getName().startswith("for.end")) {
 				errs() << " End loop: " << --loop << "\n";
@@ -166,8 +167,11 @@ bool MemoryProfiler::runOnModule(Module &M) {
 						//BB = SplitBlock(BB, NextInst, this);
 						//E=BB->end();
 					}
-					else if(isa<ICmpInst>(CurrentInst)) {
-						errs() << "\tCMP: " << dyn_cast<LoadInst>(*CurrentInst->getOperand(0))->getPointerOperand(); << "\n";
+					else if(cond && isa<ICmpInst>(CurrentInst)) {
+						LoadInst *CI = dyn_cast<LoadInst>(CurrentInst->getOperand(0));
+						Value * address = CI->getPointerOperand(), * index = CI;
+						errs() << "\tCMP: " << *address << " | " << *index << "\n";
+						cond = false;
 					}
 
 					I=NextInst;
