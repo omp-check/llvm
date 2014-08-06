@@ -98,6 +98,7 @@ bool MemoryProfiler::runOnModule(Module &M) {
 	Value * indexValue;
 	bool instrumenta = false, first = true;
 	unsigned NumCalls = 0;
+	int numLoops = 0, loop = 1;
 	Function::iterator init, main;
 	for (std::vector<Function *>::iterator it = v.begin(); it != v.end(); ++it) {
 		instrumenta = false;
@@ -124,6 +125,13 @@ bool MemoryProfiler::runOnModule(Module &M) {
 			else if (BB->getName().compare("omp.check.end") == 0) {
 				instrumenta = false;
 				errs() << " === END!\n";
+			}
+			else if(BB->getName().startswith("for.cond")) {
+				errs() << " New loop: " << loop++ << "\n";
+				numLoops++;
+			}
+			else if(BB->getName().startswith("for.end")) {
+				errs() << " End loop: " << --loop << "\n";
 			}
 
 			if(instrumenta) {
@@ -157,6 +165,9 @@ bool MemoryProfiler::runOnModule(Module &M) {
 			
 						//BB = SplitBlock(BB, NextInst, this);
 						//E=BB->end();
+					}
+					else if(isa<ICmpInst>(CurrentInst)) {
+						errs() << "\tCMP: " << dyn_cast<LoadInst>(*CurrentInst->getOperand(0))->getPointerOperand(); << "\n";
 					}
 
 					I=NextInst;
